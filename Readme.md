@@ -1,4 +1,8 @@
 # Readme
+
+Tis:
+import 库的时候注意很多重名的库，看清楚namespace
+
 ## 基础功能
 ### 开发社区首页
 ![img.png](/pics/img.png)
@@ -14,3 +18,14 @@
 git采用分布式版本控制，本地仓库和远程仓库
 
 IDEA使用Git实现同步
+
+### 开发登录功能
+#### 发送邮件
+![email.png](/pics/email.png)
+注意，使用真实邮箱的时候需要注意授权问题，在设置里面打开，而且有可能需要将配置文件中的password设置为邮箱的验证码
+
+#### 注册功能
+![register.png](/pics/register.png)
+
+#### 会话管理
+![session.png](/pics/session.png)

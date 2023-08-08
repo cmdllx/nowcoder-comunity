@@ -71,6 +71,7 @@
 								   th:class="|form-control ${usernameMsg!=null?'is-invalid':''}|"
 								   th:value="${user!=null?user.username:''}"
 								   id="username" name="username" placeholder="请输入您的账号!" required>
+<!--							input框里面invalid下面的div才会显示-->
 							<div class="invalid-feedback" th:text="${usernameMsg}">
 								该账号已存在!
 							</div>
