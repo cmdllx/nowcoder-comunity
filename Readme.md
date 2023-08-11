@@ -47,6 +47,32 @@ Cookie一方面不安全，另一方面会占用资源。对应的解决方法�
 因为是github的依赖，springboot没有做相应的配置，需要自己配置KaptchaConfig（实例化Producer接口）。然后在LoginController中添加验证码功能，在login.html中添加对应位置
 这边需要在login.html页面修改验证码相关的信息（验证码路径已经刷新验证码）
 
+#### 登录退出功能
+![](/pics/登录退出功能.png)
+login_ticket这张表来存储用户的登录凭证
 
+LoginTicketMapper中用注解的方式操作数据库,eg:    
 
+@Insert({
+"insert into login_ticket(user_id,ticket,status,expired) ",
+"values(#{userId}, #{ticket}, #{statis}, #{expired})"
+})//用逗号分开自动拼接，注意留出一个空格
+@Options(useGeneratedKeys = true, keyProperty = "id")
+public int methid(){}
+
+这边mapper的注释实现也支持script(注意双引号需要转义)
+
+在html文件中要显示默认值（例如账号密码）可以用request自带的功能，比如：
+th:value="${param.username}"，这句话value的意思相当于request.getParameter(username)
+
+网页里面动态判断：
+
+<input type="text" th:class="|form-control ${usernameMsg!=null?'is-invalid':''}|"
+th:value="${param.username}"
+id="username" name="username" placeholder="请输入您的账号!" required>
+<div class="invalid-feedback" th:text="${usernameMsg}">
+该账号不存在!
+</div>
+
+userservice和logincontroller里面实现login和logout
 

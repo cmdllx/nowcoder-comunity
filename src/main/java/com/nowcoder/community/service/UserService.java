@@ -1,6 +1,8 @@
 package com.nowcoder.community.service;
 
+import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
@@ -42,6 +44,8 @@ public class UserService implements CommunityConstant {
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     public User findUserById(int id)
     {
@@ -110,6 +114,54 @@ public class UserService implements CommunityConstant {
         userMapper.updateStatus(userId, 1);
 //        clearCache(userId);
         return ACTIVATION_SUCCESS;
+    }
+
+    //登录功能
+    public Map<String,Object> login(String username, String password, int expiredSeconds)
+    {
+        Map<String,Object> map = new HashMap<>();
+
+        //判断空值
+        if(StringUtils.isBlank(username))
+        {
+            map.put("usernameMsg","账号不能为空");
+        }
+        if (StringUtils.isBlank(password)) {
+            map.put("passwordMsg", "密码不能为空");
+            return map;
+        }
+
+        //验证账号是否存在以及是否激活
+        User user = userMapper.selectByName(username);
+        if (user == null) {
+            map.put("usernameMsg", "账号不存在");
+            return map;
+        }
+        if (user.getStatus() == 0) {
+            map.put("usernameMsg", "账号还没有激活");
+            return map;
+        }
+
+        //验证密码
+        password = CommunityUtil.md5(password + user.getSalt());
+        if (!password.equals(user.getPassword())) {
+            map.put("passwordMsg", "密码错误");
+            return map;
+        }
+
+        //生成登录凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generateUUID());
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000));//这边注意和毫秒的转换
+        map.put("ticket", loginTicket.getTicket());
+        loginTicketMapper.insertLoginTicket(loginTicket);
+        return map;
+    }
+
+    public void logout(String ticket) {
+        loginTicketMapper.updateStatus(ticket, 1);
     }
 
 
