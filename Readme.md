@@ -24,8 +24,13 @@ IDEA使用Git实现同步
 ![email.png](/pics/email.png)
 注意，使用真实邮箱的时候需要注意授权问题，在设置里面打开，而且有可能需要将配置文件中的password设置为邮箱的验证码
 
+使用工具类MailClient
+
 #### 注册功能
 ![register.png](/pics/register.png)
+
+CommunityUtil实现加密功能
+注册功能在LoginController中实现
 
 #### 会话管理
 ![session.png](/pics/session.png)
@@ -49,6 +54,18 @@ Cookie一方面不安全，另一方面会占用资源。对应的解决方法�
 
 #### 登录退出功能
 ![](/pics/登录退出功能.png)
+
+CREATE TABLE `login_ticket` (
+`id` INT(11) NOT NULL AUTO_INCREMENT,
+`user_id` INT(11) NOT NULL,
+`ticket` VARCHAR(45) NOT NULL,
+`status` INT(11) DEFAULT '0' COMMENT '0-有效; 1-无效;',
+`expired` TIMESTAMP NOT NULL,
+PRIMARY KEY (`id`),
+KEY `index_ticket` (ticket(20))
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+
 login_ticket这张表来存储用户的登录凭证
 
 LoginTicketMapper中用注解的方式操作数据库,eg:    
@@ -75,4 +92,19 @@ id="username" name="username" placeholder="请输入您的账号!" required>
 </div>
 
 userservice和logincontroller里面实现login和logout
+
+#### 显示登录信息
+![img.png](pics/显示登录信息.png)
+拦截器也算表现层controller，在controller下面新建package：interceptor
+
+拦截器除了Component注解，还要implements HandlerInterceptor，里面一共就三个拦截方法,同时配置类WebMvcConfig
+
+![img.png](pics/拦截器处理流程.png)
+配置 LoginTicketiterceptor
+
+因为服务器对浏览器是一对多，每次创建一个新的线程来解决请求（多线程环境考虑隔离，用TreadLocal工具（以线程为key存取值））,针对这个问题编写工具类HostHolder
+
+注意在WebMvcConfig添加拦截器的时候选择拦截的路径
+
+
 
