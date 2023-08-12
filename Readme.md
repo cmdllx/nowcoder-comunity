@@ -12,6 +12,11 @@ import 库的时候注意很多重名的库，看清楚namespace
 
 最后使用分页功能，实现上下页和按指定页数跳转的功能（浏览器中的显示功能需要到index.html中进行一定的修改）
 
+这个header在将来会在各种网页中复用：th:replace="index::header
+
+Thymeleaf中href与 th:href的区别:
+https://blog.csdn.net/hy1255564202/article/details/104199781
+
 ### git功能同步
 一开始只使用中央服务器统一保管，容易丢失
 ![git.png](/pics/git.png)
@@ -19,7 +24,7 @@ git采用分布式版本控制，本地仓库和远程仓库
 
 IDEA使用Git实现同步
 
-### 开发登录功能
+### 开发登录功能模块
 #### 发送邮件
 ![email.png](/pics/email.png)
 注意，使用真实邮箱的时候需要注意授权问题，在设置里面打开，而且有可能需要将配置文件中的password设置为邮箱的验证码
@@ -105,6 +110,30 @@ userservice和logincontroller里面实现login和logout
 因为服务器对浏览器是一对多，每次创建一个新的线程来解决请求（多线程环境考虑隔离，用TreadLocal工具（以线程为key存取值））,针对这个问题编写工具类HostHolder
 
 注意在WebMvcConfig添加拦截器的时候选择拦截的路径
+
+#### 账号设置
+![img.png](pics/账号设置.png)
+
+在UserController中实现对个人主页中账号设置的功能，注意用户操作不到服务器路径，需要提供用户层面的访问。
+用户上传用upload，但是更新用户头像需要get方法更新user的数据库
+
+#### 检查登录状态
+目的：防止用户直接通过访问url路径来访问本来不应该到达的地址，要让未登录的用户无法访问某些资源
+
+![img.png](pics/检查登录状态.png)
+* @Target声明自定义的注解作用的范围
+* @Retention声明自定义注解的有效时间（编译还是运行）
+* @Document声明自定义注解在生成文档的时候是否要带上
+* @Inherited用于继承父类的注解
+
+一般前两个一定要用，读取注解利用反射特性，在annotation.LoginRequired中实现（这是一个注解类）
+
+目前加到了setting和upload对应的方法中，同时编写拦截器处理判断LoginRequiredInterceptor
+
+Tips：拦截器中，这个类是有接口声明的，不能像controller直接return一个地址，需要重定向（controller的底层也是重定向）
+
+### 开发社区核心功能
+
 
 
 
