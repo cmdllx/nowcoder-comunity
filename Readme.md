@@ -142,5 +142,12 @@ Tips：拦截器中，这个类是有接口声明的，不能像controller直接
 
 创建工具类ContextConfiguration，利用前缀树保存敏感词，同时过滤特殊符号。在sensitive-words.txt中保存要过滤的敏感词
 
+#### 发布帖子
+需要用到异步请求,看一下js文件的写法
+![img.png](pics/发布帖子.png)
+
+引入fastjson包，在CommunityUtil下增加json对应的功能,用ajax-demo.html实现提交的功能，证明可以得到json数据
+
+在数据层增加addpost的方法，在service层DiscussPostService实现上级方法，中间使用HtmlUtils和过滤敏感词,DiscussPostController设置访问路径和调用，在index.js中设置异步刷新
 
 

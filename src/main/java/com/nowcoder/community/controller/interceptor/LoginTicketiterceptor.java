@@ -53,13 +53,13 @@ public class LoginTicketiterceptor implements HandlerInterceptor {
         {
             modelAndView.addObject("loginUser",user);
         }
-        else
-        {
-            if(user == null)
-                System.out.println("user is null");
-            else
-                System.out.println("model is null");
-        }
+//        else
+//        {
+//            if(user == null)
+//                System.out.println("user is null");
+//            else
+//                System.out.println("model is null");
+//        }
 
     }
 

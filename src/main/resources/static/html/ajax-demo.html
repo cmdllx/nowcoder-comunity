@@ -9,12 +9,15 @@
         <input type="button" value="发送" onclick="send();">
     </p>
 
+<!--    引入jquery-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script>
         function send() {
             $.post(
+                // 访问路径和提交参数
                 "/community/alpha/ajax",
                 {"name":"张三","age":23},
+                // data是服务器返回给浏览器的字符串数据
                 function(data) {
                     console.log(typeof(data));
                     console.log(data);
