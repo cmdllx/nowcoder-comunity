@@ -134,6 +134,13 @@ Tips：拦截器中，这个类是有接口声明的，不能像controller直接
 
 ### 开发社区核心功能
 
+#### 过滤敏感词
+![img.png](pics/过滤敏感词.png)
+
+敏感词前缀树构造示意图：
+![img.png](pics/敏感词前缀树.png)
+
+创建工具类ContextConfiguration，利用前缀树保存敏感词，同时过滤特殊符号。在sensitive-words.txt中保存要过滤的敏感词
 
 
 
