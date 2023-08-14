@@ -169,5 +169,12 @@ Spring一套API管理所有数据库的事务
 
 测试方法卸载Userservice中，两个save方法表示两种方式，均支持回滚，建议使用第一种
 
+#### 显示评论
+![img.png](pics/显示评论.png)
+comment这张表用来存储评论
+status = 0表示评论有效，entity_type表示回复的类型，entity_id表示回复的具体id，target_id表示回复哪个user
 
+创建对应的entity，dao，service，在DiscussPostController中修改逻辑
+
+index.html和discuss-detail.html修改
 

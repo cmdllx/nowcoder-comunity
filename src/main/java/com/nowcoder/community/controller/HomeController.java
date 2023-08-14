@@ -28,10 +28,10 @@ public class HomeController {
     {
         //在方法调用前，SpringMVC会自动实例化Page和Model，并且将Page注入Model
         //所以可以在thymeleaf中直接访问Page对象中的数据。
-        page.setRows(discussPostService.findDiscussPostsRows(1));
+        page.setRows(discussPostService.findDiscussPostsRows(0));
         page.setPath("/index");
 
-        List<DiscussPost> list = discussPostService.findDiscussPosts(1, page.getOffset(), page.getLimit());
+        List<DiscussPost> list = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit());
         List<Map<String, Object>> discussPosts = new ArrayList<>();
         for (DiscussPost post : list) {
             Map<String, Object> map = new HashMap<>();
