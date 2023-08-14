@@ -150,4 +150,24 @@ Tips：拦截器中，这个类是有接口声明的，不能像controller直接
 
 在数据层增加addpost的方法，在service层DiscussPostService实现上级方法，中间使用HtmlUtils和过滤敏感词,DiscussPostController设置访问路径和调用，在index.js中设置异步刷新
 
+#### 帖子详情
+![img.png](pics/帖子详情.png)
+主要增加根据id查询帖子的功能，细节注意显示作者的名字而非id
+
+#### 事务管理
+![img.png](pics/事务管理.png)
+![img.png](pics/事务的隔离性.png)
+![img.png](pics/第一类丢失更新.png)
+![img.png](pics/第二类丢失更新.png)
+![img.png](pics/脏读.png)
+![img.png](pics/不可重复读.png)
+![img.png](pics/幻读.png)
+![img.png](pics/事务隔离级别.png)
+![img.png](pics/实现机制.png)
+![img.png](pics/Spring事务管理.png)
+Spring一套API管理所有数据库的事务
+
+测试方法卸载Userservice中，两个save方法表示两种方式，均支持回滚，建议使用第一种
+
+
 
