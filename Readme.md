@@ -2,6 +2,7 @@
 
 Tis:
 import 库的时候注意很多重名的库，看清楚namespace
+创建sql数据表用resources/templates下面的sql文件夹中的脚本
 
 ## 基础功能
 ### 开发社区首页
@@ -185,4 +186,14 @@ index.html和discuss-detail.html修改
 评论文本除了敏感词过滤，还可以可做一个html语法的过滤，保持标签HtmlUtils.htmlEscape
 
 创建CommentController实现回帖的跳转，添加评论之后需要回到当前post页面，所以controller路径设置成"/add/{discussPostId}"
+
+#### 私信列表
+这边做的功能是朋友私信
+![img.png](私信列表.png)
+
+创建message表，注意conversation_id总是将小的id放在前面.status=2表示删除，from_id=1表示系统通知
+
+message三层结构的编写，页面修改index，letter，letter-detail
+
+
 
