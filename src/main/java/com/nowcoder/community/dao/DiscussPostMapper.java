@@ -21,5 +21,8 @@ public interface DiscussPostMapper {
     //根据id查询帖子
     DiscussPost selectDiscussPostById(int id);
 
+    //帖子中冗余存了评论数量
+    int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
+
 
 }

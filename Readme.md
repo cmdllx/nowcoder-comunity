@@ -178,3 +178,11 @@ status = 0表示评论有效，entity_type表示回复的类型，entity_id表�
 
 index.html和discuss-detail.html修改
 
+#### 添加评论
+![img.png](pics/添加评论.png)
+对Comment和DiscussPost的三层进行修改，注意插入评论之后总的回帖数需要修改，核心代码是CommentService中addComment方法
+
+评论文本除了敏感词过滤，还可以可做一个html语法的过滤，保持标签HtmlUtils.htmlEscape
+
+创建CommentController实现回帖的跳转，添加评论之后需要回到当前post页面，所以controller路径设置成"/add/{discussPostId}"
+
