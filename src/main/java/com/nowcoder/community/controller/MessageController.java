@@ -61,6 +61,7 @@ public class MessageController implements CommunityConstant {
     }
 
 
+    //返回未读的消息id列表
     private List<Integer> getLetterIds(List<Message> letterList) {
         List<Integer> ids = new ArrayList<>();
         if (letterList != null) {
@@ -96,10 +97,10 @@ public class MessageController implements CommunityConstant {
         //私信目标
         User target = getLetterTarget(conversationId);
         model.addAttribute("target", target);
-//        List<Integer> ids = getLetterIds(letterList);
-//        if (!ids.isEmpty()) {
-//            messageService.readMessage(ids);
-//        }
+        List<Integer> ids = getLetterIds(letterList);
+        if (!ids.isEmpty()) {
+            messageService.readMessage(ids);
+        }
         return "/site/letter-detail";
     }
 
@@ -111,29 +112,29 @@ public class MessageController implements CommunityConstant {
             return userService.findUserById(id1);
         return userService.findUserById(id0);
     }
-//
-//    @RequestMapping(path = "/letter/send", method = RequestMethod.POST)
-//    //因为是异步请求
-//    @ResponseBody
-//    public String sendLetter(String toName, String content) {
-//        User target = userService.findUserByName(toName);
-//        if (target == null) {
-//            return CommunityUtil.getJSONString(1, "目标用户不存在");
-//        }
-//        Message message = new Message();
-//        message.setFromId(hostHolder.getUser().getId());
-//        message.setToId(target.getId());
-//        if (message.getFromId() <= message.getToId()) {
-//            message.setConversationId(message.getFromId() + "_" + message.getToId());
-//        } else {
-//            message.setConversationId(message.getToId() + "_" + message.getFromId());
-//        }
-//        message.setContent(content);
-//        message.setCreateTime(new Date());
-//        messageService.addMessage(message);
-//        //统一解决异常
-//        return CommunityUtil.getJSONString(0);
-//    }
+
+    @RequestMapping(path = "/letter/send", method = RequestMethod.POST)
+    //因为是异步请求,返回的大概率是json这样的数据，所以要加@ResponseBody
+    @ResponseBody
+    public String sendLetter(String toName, String content) {
+        User target = userService.findUserByName(toName);
+        if (target == null) {
+            return CommunityUtil.getJSONString(1, "目标用户不存在");
+        }
+        Message message = new Message();
+        message.setFromId(hostHolder.getUser().getId());
+        message.setToId(target.getId());
+        if (message.getFromId() <= message.getToId()) {
+            message.setConversationId(message.getFromId() + "_" + message.getToId());
+        } else {
+            message.setConversationId(message.getToId() + "_" + message.getFromId());
+        }
+        message.setContent(content);
+        message.setCreateTime(new Date());
+        messageService.addMessage(message);
+        //统一解决异常
+        return CommunityUtil.getJSONString(0);
+    }
 //
 //    @RequestMapping(path = "/notice/list", method = RequestMethod.GET)
 //    public String getNoticeList(Model model) {

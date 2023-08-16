@@ -195,5 +195,7 @@ index.html和discuss-detail.html修改
 
 message三层结构的编写，页面修改index，letter，letter-detail
 
-
+#### 发送私信
+![img.png](pics/发送私信.png)
+和回帖一样，有两个地方可能要用（直接选择定向发消息或者在消息列表中选择某个人的历史会话给他私信）
 

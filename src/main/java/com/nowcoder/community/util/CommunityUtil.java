@@ -49,6 +49,10 @@ public class CommunityUtil {
         return getJSONString(code, msg, null);
     }
 
+    public static String getJSONString(int code) {
+        return getJSONString(code, null, null);
+    }
+
     //这个类比较简单，就不用bean注入测试了，直接main测试
     public static void main(String[] args) {
         Map<String, Object> map = new HashMap<>();
