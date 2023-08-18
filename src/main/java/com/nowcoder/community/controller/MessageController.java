@@ -32,6 +32,7 @@ public class MessageController implements CommunityConstant {
     //处理私信列表
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET)
     public String getLetterList(Model model, Page page) {
+//        Integer.valueOf("abc");
         User user = hostHolder.getUser();
         //设置分页信息
         page.setLimit(5);
@@ -117,6 +118,7 @@ public class MessageController implements CommunityConstant {
     //因为是异步请求,返回的大概率是json这样的数据，所以要加@ResponseBody
     @ResponseBody
     public String sendLetter(String toName, String content) {
+//        Integer.valueOf("abc");
         User target = userService.findUserByName(toName);
         if (target == null) {
             return CommunityUtil.getJSONString(1, "目标用户不存在");

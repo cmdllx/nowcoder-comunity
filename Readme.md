@@ -189,7 +189,7 @@ index.html和discuss-detail.html修改
 
 #### 私信列表
 这边做的功能是朋友私信
-![img.png](私信列表.png)
+![img.png](pics/私信列表.png)
 
 创建message表，注意conversation_id总是将小的id放在前面.status=2表示删除，from_id=1表示系统通知
 
@@ -198,4 +198,23 @@ message三层结构的编写，页面修改index，letter，letter-detail
 #### 发送私信
 ![img.png](pics/发送私信.png)
 和回帖一样，有两个地方可能要用（直接选择定向发消息或者在消息列表中选择某个人的历史会话给他私信）
+
+在Message和User的各层中新加send message功能
+
+#### 统一处理异常
+![img.png](pics/统一处理异常.png)
+
+Springboot统一的错误处理就是将xxx.html放到templates/error下面，这样出现错误就会跳转到对应的html文件
+
+三种注解可以绑定三种不同的情况，这边主要演示ExceptionHandler，用ExceptionAdvice进行绑定,这样不需要在任何一个Controller中加代码了
+
+#### 统一日志记录
+![img.png](pics/统一日志记录.png)
+如何将日志这种系统需求和业务需求分开，使用aop编程思想
+![img.png](pics/AOP.png)
+![img.png](pics/AOP术语.png)
+![img.png](AOP的实现.png)
+![img.png](Spring AOP.png)
+
+ServiceLogAspect实现了一个监测ip访问的功能
 
