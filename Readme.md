@@ -213,8 +213,17 @@ Springboot统一的错误处理就是将xxx.html放到templates/error下面，�
 如何将日志这种系统需求和业务需求分开，使用aop编程思想
 ![img.png](pics/AOP.png)
 ![img.png](pics/AOP术语.png)
-![img.png](AOP的实现.png)
-![img.png](Spring AOP.png)
+![img.png](pics/AOP的实现.png)
+![img.png](pics/Spring%20AOP.png)
 
 ServiceLogAspect实现了一个监测ip访问的功能
 
+### Redis实现高性能
+学redis主要就学几种数据类型，
+针对window的安装包：
+https://github.com/microsoftarchive/redis
+
+#### Spring整合redis
+![img.png](pics/Spring整合redis.png)
+
+RedisTests测试类测试redis基本功能,注意redis的事务并不完全满足ACID，将所有的redis操作放入队列，统一提交给服务器（不要在事务中间查询数据）
