@@ -227,3 +227,11 @@ https://github.com/microsoftarchive/redis
 ![img.png](pics/Spring整合redis.png)
 
 RedisTests测试类测试redis基本功能,注意redis的事务并不完全满足ACID，将所有的redis操作放入队列，统一提交给服务器（不要在事务中间查询数据）
+
+#### 点赞
+这是一个高频功能，用redis提升性能
+![img.png](pics/点赞.png)
+
+因为redis直接操作比较方便，就不设置dao层了，用RedisKeyUtil设置key，编写likeservice和likecontroller，页面方面修改discuss-detail和discuss.js
+
+添加点赞功能和首页赞数量的显示
