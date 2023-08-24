@@ -228,6 +228,8 @@ https://github.com/microsoftarchive/redis
 
 RedisTests测试类测试redis基本功能,注意redis的事务并不完全满足ACID，将所有的redis操作放入队列，统一提交给服务器（不要在事务中间查询数据）
 
+单写一个类RedisKeyUtil表示各种key
+
 #### 点赞
 这是一个高频功能，用redis提升性能
 ![img.png](pics/点赞.png)
@@ -235,3 +237,22 @@ RedisTests测试类测试redis基本功能,注意redis的事务并不完全满�
 因为redis直接操作比较方便，就不设置dao层了，用RedisKeyUtil设置key，编写likeservice和likecontroller，页面方面修改discuss-detail和discuss.js
 
 添加点赞功能和首页赞数量的显示
+
+#### 我收到的赞
+![img.png](pics/我收到的赞.png)
+
+在上面点赞功能的文件中添加功能，在UserController中增加查看个人profile的功能。并且修改index，discuss-post等页面
+
+#### 关注取关
+![img.png](pics/关注取关.png)
+
+FollowService实现关注和取关功能,Userservice中更新功能，controller设置关注和取关功能，profile.html和profile.js对应调整
+
+#### 关注列表粉丝列表
+![img.png](pics/关注列表粉丝列表.png)
+FollowService中新增两个查询功能，返回列表，controller中对应的访问地址
+修改followee和follower两个页面
+
+#### 优化登录模块
+![img.png](pics/优化登录模块.png)
+在LoginController && userservice 中优化之前的登录逻辑,注意因为没有改html文件，logout功能有一些bug

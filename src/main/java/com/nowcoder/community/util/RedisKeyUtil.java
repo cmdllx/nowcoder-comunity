@@ -20,11 +20,12 @@ public class RedisKeyUtil {
     }
 
     //某个用户收获的赞
+    //like:user:userId -> int
     public static String getUserLikeKey(int userId) {
         return PREFIX_USER_LIKE + SPLIT + userId;
     }
 
-    //某个用户的关注实体
+    //某个用户的关注实体(不一定关注的是用户，别写死),userId关注的列表
     //followee:userId:entityType -> zSet(entityId,time)
     public static String getFolloweeKey(int userId, int entityType) {
         return PREFIX_FOLLOWEE + SPLIT + userId + SPLIT + entityType;
@@ -36,7 +37,7 @@ public class RedisKeyUtil {
         return PREFIX_FOLLOWER + SPLIT + entityType + SPLIT + entityId;
     }
 
-    //验证码
+    //验证码，因为没登录所以不知道userid，用字符串临时标明用户凭证
     public static String getKaptchaKey(String owner) {
         return PREFIX_KAPTCHA + SPLIT + owner;
     }
