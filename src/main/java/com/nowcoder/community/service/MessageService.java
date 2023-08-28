@@ -44,7 +44,7 @@ public class MessageService {
         return messageMapper.insertMessage(message);
     }
 
-    //返回改变的行数
+    //设置消息为已读，返回改变的行数
     public int readMessage(List<Integer> ids) {
         return messageMapper.updateStatus(ids, 1);
     }

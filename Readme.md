@@ -218,6 +218,7 @@ Springboot统一的错误处理就是将xxx.html放到templates/error下面，�
 
 ServiceLogAspect实现了一个监测ip访问的功能
 
+## 进阶功能
 ### Redis实现高性能
 学redis主要就学几种数据类型，
 针对window的安装包：
@@ -256,3 +257,45 @@ FollowService中新增两个查询功能，返回列表，controller中对应的
 #### 优化登录模块
 ![img.png](pics/优化登录模块.png)
 在LoginController && userservice 中优化之前的登录逻辑,注意因为没有改html文件，logout功能有一些bug
+
+### Kafka构建TB级异步消息系统
+#### 阻塞队列
+![img.png](pics/阻塞队列.png)
+阻塞队列在两个线程中间提供缓冲，减少对CPU资源的占用
+BlockingQueueTests简单演示
+
+#### Kafka入门
+![img.png](pics/Kafka简介.png)
+硬盘的顺序读取速度很快，Kafka利用了这一点实现高性能
+消息队列实现的方式主要两种：1.上次测试实现的点对点 2.发布订阅模型，一个生产者，多个消费者，Kafka主要是这一种
+Broker：Kafka服务器
+Zookeeper：用于管理集群
+Topic：生产者发布的位置
+Partition：对Topic的分区
+Offset：消息在分区内存放的索引
+Leader Replica：主副本，从这个分区读取可以直接响应
+Follower Replica：：从副本，只是备份，不能直接响应。主副本挂了之后会选一个从副本选一个作为主副本
+
+下载kafka之后需要配置
+
+#### Spring整合Kafka
+![img.png](pics/Spring整合Kafka.png)
+导入依赖，配置properties
+kafka windows版本有时候不稳定，linux版本稳定，这时候需要把kafka-logs文件夹删了
+
+启动：
+bin\windows\kafka-server-start.bat config\server.properties
+bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+#### 发送系统通知
+![img.png](pics/发送系统通知.png)
+创建Event实体，事件的过程相当于向message表里插入数据，更新Community_Constant里面的主题
+系统发送的消息总是从用户1发出，所以conversation_id可以换成系统类通知的类型，并在不同类型的事件的controller中发送消息触发事件
+
+#### 显示系统通知
+![img.png](pics/显示系统通知.png)
+
+在message的dao和service中增加统计message数量的方法,
+在系统通知页面会有三条消息显示
+
+同时增加message拦截器

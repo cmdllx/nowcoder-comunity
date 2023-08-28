@@ -38,7 +38,9 @@ public interface MessageMapper {
     //修改状态
     int updateStatus(@Param("ids") List<Integer> ids, @Param("status") int status);
 
-    //某个主题下的最新通知（最新通知）
+    //系统通知功能
+
+    //查询某个主题下的最新通知（最新通知）
     Message selectLatestNotice(@Param("userId") int userId, @Param("topic") String topic);
 
     //某个主题包含的通知数量（显示数量）
